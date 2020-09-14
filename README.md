@@ -21,7 +21,7 @@ Repository
 
 ## Installation
 
-Add one of these lines to your application's Gemfile:
+Add **one** of these lines to your application's Gemfile:
 
 ```ruby
 gem 'medusa-client', git: 'https://github.com/medusa-project/medusa-client.git', branch: 'my-branch'
@@ -35,7 +35,10 @@ And then execute:
 $ bundle
 ```
 
-Finally, add the following to `config/initializers/medusa-client.rb`:
+By default, configuration is obtained from the `MEDUSA_BASE_URL`,
+`MEDUSA_USER`, and `MEDUSA_SECRET` environment variables. But you can use Ruby
+instead by overriding `Medusa::Client.configuration`, by, for example, adding
+the following to `config/initializers/medusa-client.rb`:
 
 ```ruby
 Medusa::Client.configuration = {

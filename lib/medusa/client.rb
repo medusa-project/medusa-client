@@ -11,7 +11,11 @@ module Medusa
 
     include ::Singleton
 
-    @@configuration = {}
+    @@configuration = {
+        medusa_base_url: ENV['MEDUSA_BASE_URL'],
+        medusa_user:     ENV['MEDUSA_USER'],
+        medusa_secret:   ENV['MEDUSA_SECRET']
+    }
 
     def self.configuration
       @@configuration
