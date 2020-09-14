@@ -76,19 +76,17 @@ module Medusa
     #
     def http_client
       config = self.class.configuration
-      url    = config[:medusa_base_url]
-      user   = config[:medusa_user]
-      secret = config[:medusa_secret]
       @http_client ||= ::HTTPClient.new do
         # use the OS cert store
         self.ssl_config.cert_store.set_default_paths
         #self.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
         self.force_basic_auth = true
         self.receive_timeout = 10000
-        uri    = URI.parse(url)
-        domain = "#{uri.scheme}://#{uri.host}"
-        user   = user
-        secret = secret
+        uri     = URI.parse(config[:medusa_base_url])
+        domain  = "#{uri.scheme}://#{uri.host}"
+        domain += ":#{uri.port}" unless [80, 443].include?(uri.port)
+        user    = config[:medusa_user]
+        secret  = config[:medusa_secret]
         self.set_auth(domain, user, secret)
       end
     end
