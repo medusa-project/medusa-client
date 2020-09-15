@@ -1,46 +1,46 @@
 # Medusa::Client
 
-This gem provides a high-level client for accessing Medusa's REST API, for the
-purpose of navigating its main entity tree:
+This gem provides a high-level client for navigating Medusa's main entity tree
+using its REST API.
 
 ```
-Repository
+Medusa::Repository
      |
      |
-     --> Collection
+     --> Medusa::Collection
              |
              |
-             --> File Group    -------
-                     |         |     |
-                     |         V     |
-                     --> Directory --- 
+             --> Medusa::FileGroup     -------
+                     |                 |     |
+                     |                 V     |
+                     --> Medusa::Directory --- 
                              |
                              |
-                              --> File
+                              --> Medusa::File
 ```
 
 ## Installation
 
-Add **one** of these lines to your application's Gemfile:
+Add one of these lines to your application's Gemfile:
 
 ```ruby
-gem 'medusa-client', git: 'https://github.com/medusa-project/medusa-client.git', branch: 'my-branch'
-gem 'medusa-client', git: 'https://github.com/medusa-project/medusa-client.git', tag: 'my-tag'
-gem 'medusa-client', path: '/path/to/my/medusa-client'
+gem 'medusa-client', git: 'https://github.com/medusa-project/medusa-client.git'
+gem 'medusa-client', path: '/path/to/medusa-client'
 ```
 
-And then execute:
+And then invoke:
 
-```sh
+```shell script
 $ bundle
 ```
 
 By default, configuration is obtained from the `MEDUSA_BASE_URL`,
-`MEDUSA_USER`, and `MEDUSA_SECRET` environment variables. But you can use Ruby
-instead by overriding `Medusa::Client.configuration`, by, for example, adding
-the following to `config/initializers/medusa-client.rb`:
+`MEDUSA_USER`, and `MEDUSA_SECRET` environment variables. But you can also
+assign a configuration hash to `Medusa::Client.configuration` via Ruby. Here is
+an example involving a Rails initializer:
 
 ```ruby
+# Put this in config/initializers/medusa-client.rb
 Medusa::Client.configuration = {
     medusa_base_url: "https://...",
     medusa_user:     "my-user",
@@ -50,7 +50,8 @@ Medusa::Client.configuration = {
 
 ## Usage
 
-You can obtain a `Medusa::Client` directly, but it's not very useful:
+`Medusa::Client` is responsible for all of the communication with Medusa, but
+it's mostly used behind-the-scenes. Still, it can do a little on its own:
 
 ```ruby
 client = Medusa::Client.instance
@@ -62,8 +63,9 @@ client.class_of_uuid("some medusa UUID")
 client.url_for_uuid("some medusa UUID")
 ```
 
-Here is an example where we walk across the whole entity graph, starting at its
-root (a repository):
+More likely you will want to use the higher-level classes to navigate the
+entity tree. Here is an example where we walk across a whole tree, starting at
+its root, which is a `Medusa::Repository`:
 
 ```ruby
 # Get a repository by its ID
@@ -87,25 +89,26 @@ repo.collections.each do |collection|
 end
 ```
 
-## Development
+## Testing
 
-After checking out the repo, run `bin/setup` to install dependencies.
+The tests are written to interface with the content in
+[Mockdusa](https://github.com/medusa-project/mockdusa). (Repository ID 1
+contains all of the test content.)
 
-For testing, you must define the following environment variables:
+Mockdusa can be run locally or in Docker (see below). Assuming that it's
+running locally, you would have to define the following environment variables
+before running the tests:
 
-* `MEDUSA_BASE_URL`
-* `MEDUSA_USER`
-* `MEDUSA_SECRET`
+* `MEDUSA_BASE_URL=http://localhost:4567`
+* `MEDUSA_USER=medusa`
+* `MEDUSA_SECRET=secret`
 
-Then, run `rake test` to run the tests. You can also run `bin/console` for an
-interactive prompt for experimentation.
+Finally, `bundle exec rake test` runs the tests.
 
-## Releasing
+You can also run the tests in Docker using docker-compose:
 
-TODO: write this
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at
-https://github.com/medusa-project/medusa-client. If you do submit a pull
-request, please include tests for your changes.
+```shell script
+# Get credentials to access ECR from which the Mockdusa image will be pulled
+$ aws login
+$ docker-compose up --build --exit-code-from medusa-client
+```

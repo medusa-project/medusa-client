@@ -1,0 +1,17 @@
+#
+# Example invocation: docker-compose up --exit-code-from medusa-client
+#
+version: '3'
+services:
+  mockdusa:
+    image: 721945215539.dkr.ecr.us-east-2.amazonaws.com/mockdusa:latest
+    hostname: mockdusa
+  medusa-client:
+    environment:
+      MEDUSA_BASE_URL: http://mockdusa:4567
+      MEDUSA_USER: medusa
+      MEDUSA_SECRET: secret
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "sleep 5; bundle exec rake test"
