@@ -1,5 +1,7 @@
 # Medusa::Client
 
+[API Documentation](https://medusa-project.github.com/medusa-client/)
+
 This gem provides a high-level client for navigating Medusa's main entity tree
 using its REST API.
 
@@ -30,7 +32,7 @@ gem 'medusa-client', path: '/path/to/medusa-client'
 
 And then invoke:
 
-```shell script
+```sh
 $ bundle
 ```
 
@@ -89,6 +91,11 @@ repo.collections.each do |collection|
 end
 ```
 
+## Documentation
+
+To update the documentation on GitHub Pages, invoke
+`bundle exec rake publish_docs`.
+
 ## Testing
 
 The tests are written to interface with the content in
@@ -107,7 +114,7 @@ Finally, `bundle exec rake test` runs the tests.
 
 You can also run the tests in Docker using docker-compose:
 
-```shell script
+```sh
 # Get credentials to access ECR from which the Mockdusa image will be pulled
 $ aws login
 $ docker-compose up --build --exit-code-from medusa-client
