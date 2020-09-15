@@ -10,27 +10,27 @@ class Medusa::ClientTest < Minitest::Test
   # class_of_uuid()
 
   def test_class_of_uuid_returns_repository
-    uuid = '133cd570-2f1c-0137-6bed-02d0d7bfd6e4-6'
+    uuid = '40b62a2d-209f-292a-b1fc-4818b3321e6a'
     assert_equal ::Medusa::Repository, @instance.class_of_uuid(uuid)
   end
 
   def test_class_of_uuid_returns_collection
-    uuid = '2f494400-b53e-0136-52a6-0050569601ca-9'
+    uuid = '81a13f45-d149-3dd7-f233-53cc395217fa'
     assert_equal ::Medusa::Collection, @instance.class_of_uuid(uuid)
   end
 
   def test_class_of_uuid_returns_file_group
-    uuid = '7afc3e80-b41b-0134-234d-0050569601ca-7'
+    uuid = '5881d456-6dbe-90f1-ac81-7e0bf53e9c84'
     assert_equal ::Medusa::FileGroup, @instance.class_of_uuid(uuid)
   end
 
   def test_class_of_uuid_returns_directory
-    uuid = '7b1f3340-b41b-0134-234d-0050569601ca-8'
+    uuid = '1b760655-c504-7fce-f171-76e4234844da'
     assert_equal ::Medusa::Directory, @instance.class_of_uuid(uuid)
   end
 
   def test_class_of_uuid_returns_file
-    uuid = '6cc533c0-cebf-0134-238a-0050569601ca-3'
+    uuid = 'da572841-80a8-86fb-48eb-6ba18ade48ef'
     assert_equal ::Medusa::File, @instance.class_of_uuid(uuid)
   end
 

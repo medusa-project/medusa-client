@@ -4,53 +4,47 @@ require "test_helper"
 class Medusa::CollectionTest < MiniTest::Test
 
   def setup
-    @instance = ::Medusa::Collection.with_id(55)
+    @instance = ::Medusa::Collection.with_id(1)
   end
 
   # with_id()
 
   def test_with_id_returns_an_instance
-    @instance = ::Medusa::Collection.with_id(55)
-    assert_equal 'https://digital.library.illinois.edu/collections/8116a380-e3fb-012f-c5b6-0019b9e633c5-c',
-                 @instance.access_url
-    assert_nil @instance.contact_email
-    assert @instance.description.start_with?('This collection is')
-    assert @instance.description_html.start_with?('<p>This collection is')
-    assert_equal '3501042', @instance.external_id
-    assert_equal 4, @instance.file_groups.length
-    assert_equal 55, @instance.id
-    assert_equal 'https://archives.library.illinois.edu/archon/index.php?p=collections/controlcard&id=5008',
-                 @instance.physical_collection_url
-    assert_equal '', @instance.private_description
+    @instance = ::Medusa::Collection.with_id(1)
+    assert_equal 'https://example.org/', @instance.access_url
+    assert_equal 'alexd@illinois.edu', @instance.contact_email
+    assert_equal 'This collection contains Mockdusa test content.', @instance.description
+    assert_equal '<p>This collection contains Mockdusa test content.</p>', @instance.description_html
+    assert_nil @instance.external_id
+    assert_equal 2, @instance.file_groups.length
+    assert_equal 1, @instance.id
+    assert_nil @instance.physical_collection_url
+    assert_nil @instance.private_description
     assert @instance.published?
-    assert_equal '', @instance.representative_image
-    assert_equal '7dc8e560-0b13-0134-1d55-0050569601ca-f',
-                 @instance.representative_item
-    assert_equal 'French World War I Posters', @instance.title
-    assert_equal '8116a380-e3fb-012f-c5b6-0019b9e633c5-c', @instance.uuid
+    assert_nil @instance.representative_image
+    assert_nil @instance.representative_item
+    assert_equal 'Mockdusa Test Collection', @instance.title
+    assert_equal '81a13f45-d149-3dd7-f233-53cc395217fa', @instance.uuid
   end
 
   # with_uuid()
 
   def test_with_uuid_returns_an_instance
-    @instance = ::Medusa::Collection.with_uuid('8116a380-e3fb-012f-c5b6-0019b9e633c5-c')
-    assert_equal 'https://digital.library.illinois.edu/collections/8116a380-e3fb-012f-c5b6-0019b9e633c5-c',
-                 @instance.access_url
-    assert_nil @instance.contact_email
-    assert @instance.description.start_with?('This collection is')
-    assert @instance.description_html.start_with?('<p>This collection is')
-    assert_equal '3501042', @instance.external_id
-    assert_equal 4, @instance.file_groups.length
-    assert_equal 55, @instance.id
-    assert_equal 'https://archives.library.illinois.edu/archon/index.php?p=collections/controlcard&id=5008',
-                 @instance.physical_collection_url
-    assert_equal '', @instance.private_description
+    @instance = ::Medusa::Collection.with_uuid('81a13f45-d149-3dd7-f233-53cc395217fa')
+    assert_equal 'https://example.org/', @instance.access_url
+    assert_equal 'alexd@illinois.edu', @instance.contact_email
+    assert_equal 'This collection contains Mockdusa test content.', @instance.description
+    assert_equal '<p>This collection contains Mockdusa test content.</p>', @instance.description_html
+    assert_nil @instance.external_id
+    assert_equal 2, @instance.file_groups.length
+    assert_equal 1, @instance.id
+    assert_nil @instance.physical_collection_url
+    assert_nil @instance.private_description
     assert @instance.published?
-    assert_equal '', @instance.representative_image
-    assert_equal '7dc8e560-0b13-0134-1d55-0050569601ca-f',
-                 @instance.representative_item
-    assert_equal 'French World War I Posters', @instance.title
-    assert_equal '8116a380-e3fb-012f-c5b6-0019b9e633c5-c', @instance.uuid
+    assert_nil @instance.representative_image
+    assert_nil @instance.representative_item
+    assert_equal 'Mockdusa Test Collection', @instance.title
+    assert_equal '81a13f45-d149-3dd7-f233-53cc395217fa', @instance.uuid
   end
 
   # load()
@@ -70,10 +64,9 @@ class Medusa::CollectionTest < MiniTest::Test
   # repository()
 
   def test_repository_returns_a_repository
-    @instance.load
     repo = @instance.repository
     assert repo.kind_of?(Medusa::Repository)
-    assert_equal '1319d320-2f1c-0137-6bed-02d0d7bfd6e4-7', repo.uuid
+    assert_equal '40b62a2d-209f-292a-b1fc-4818b3321e6a', repo.uuid
   end
 
   # url()
