@@ -76,6 +76,17 @@ class Medusa::DirectoryTest < MiniTest::Test
     assert_equal 'root', @instance.name
   end
 
+  # parent()
+
+  def test_parent_returns_the_parent_directory
+    @instance = ::Medusa::Directory.with_id(175789411019744)
+    assert_equal 30193726375172, @instance.parent.id
+  end
+
+  def test_parent_returns_nil_for_root_directories
+    assert_nil @instance.parent
+  end
+
   # url()
 
   def test_url_returns_the_correct_url

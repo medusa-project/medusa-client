@@ -45,6 +45,7 @@ module Medusa
     def initialize
       super
       # These relate to the /cfs_directories/:id.json representation.
+      @parent_id             = nil
       @files                 = Set.new
       @directories           = Set.new
       @loaded                = false
@@ -88,6 +89,7 @@ module Medusa
       @id           = struct['id']
       @relative_key = struct['relative_pathname']
       @uuid         = struct['uuid']
+      @parent_id    = struct['parent_directory']['id'] if struct['parent_directory']
       struct['subdirectories'].each do |subdir|
         @directories << Directory.with_id(subdir['id'])
       end
@@ -95,6 +97,15 @@ module Medusa
         @files << File.from_json(file)
       end
       @loaded = true
+    end
+
+    ##
+    # @return [Medusa::Directory] The parent directory, or `nil` if the
+    #         instance is a root directory within a file group.
+    #
+    def parent
+      load
+      @parent ||= ::Medusa::Directory.with_id(@parent_id) if @parent_id
     end
 
     ##
