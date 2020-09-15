@@ -10,16 +10,17 @@ module Medusa
     protected
 
     ##
+    # @param url_path [String] Overrides the URL path.
     # @return [Hash] Deserialized JSON response body.
     # @raises [RuntimeError] if neither {id} nor {uuid} attributes are set.
     # @raises [NotFoundError] for a 404 response.
     # @raises [IOError] for any other 400- or 500- level response.
     #
-    def fetch_body
+    def fetch_body(url_path = nil)
       raise 'fetch_body() called without ID or UUID set' unless self.id || self.uuid
 
       client   = Client.instance
-      url      = (self.id ? self.url : self.uuid_url) + '.json'
+      url      = url_path || ((self.id ? self.url : self.uuid_url) + '.json')
       response = client.get(url)
 
       if response.status < 300

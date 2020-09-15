@@ -9,6 +9,24 @@ class Medusa::DirectoryTest < MiniTest::Test
     @instance = ::Medusa::Directory.with_id(30193726375172)
   end
 
+  # from_json()
+
+  def test_from_json_returns_an_instance
+    json = {
+        'id'             => 3,
+        'uuid'           => '9fe12966-2be0-e43d-fe3b-8bbbe3c99c90',
+        'name'           => 'some_dir',
+        'parent_id'      => 5,
+        'parent_type'    => 'CfsDirectory',
+        'files'          => [],
+        'subdirectories' => []
+    }
+    @instance = ::Medusa::Directory.from_json(json)
+    assert_equal 3, @instance.id
+    #assert_equal 'repositories/1/collections/1/file_groups/1/root', @instance.relative_key TODO: fix this
+    assert_equal '9fe12966-2be0-e43d-fe3b-8bbbe3c99c90', @instance.uuid
+  end
+
   # with_id()
 
   def test_with_id_returns_an_instance
@@ -31,6 +49,16 @@ class Medusa::DirectoryTest < MiniTest::Test
 
   def test_directories_returns_subdirectories
     assert_equal 2, @instance.directories.length
+  end
+
+  # directory_tree_url()
+
+  def test_directory_tree_url_returns_the_correct_url
+    expected = [::Medusa::Client.configuration[:medusa_base_url].chomp('/'),
+                'cfs_directories',
+                @instance.id,
+                'show_tree.json'].join('/')
+    assert_equal expected, @instance.directory_tree_url
   end
 
   # files()

@@ -7,6 +7,21 @@ module Medusa
 
     include Resource
 
+    attr_accessor :json
+
+    ##
+    # Initializes a new instance from a JSON fragment.
+    #
+    # @param json [Hash]
+    # @return [Medusa::Directory]
+    #
+    def self.from_json(json)
+      dir = Medusa::Directory.new
+      dir.json = json
+      dir.load
+      dir
+    end
+
     ##
     # @param id [Integer]
     # @return [Medusa::Directory]
@@ -29,9 +44,13 @@ module Medusa
 
     def initialize
       super
-      @files       = Set.new
-      @directories = Set.new
-      @loaded      = false
+      # These relate to the /cfs_directories/:id.json representation.
+      @files                 = Set.new
+      @directories           = Set.new
+      @loaded                = false
+      # These relate to the /cfs_directories/:id/show_tree.json representation.
+      @directory_tree        = nil
+      @directory_tree_loaded = false
     end
 
     ##
@@ -40,6 +59,14 @@ module Medusa
     def directories
       load
       @directories
+    end
+
+    ##
+    # @return [String] URI of the corresponding Medusa directory tree resource.
+    # @see url
+    #
+    def directory_tree_url
+      self.url + '/show_tree.json'
     end
 
     ##
@@ -57,7 +84,7 @@ module Medusa
     #
     def load
       return if @loaded
-      struct        = fetch_body
+      struct        = json ? json : fetch_body
       @id           = struct['id']
       @relative_key = struct['relative_pathname']
       @uuid         = struct['uuid']
@@ -72,6 +99,7 @@ module Medusa
 
     ##
     # @return [String] Absolute URI of the corresponding Medusa resource.
+    # @see directory_tree_url
     #
     def url
       [::Medusa::Client.configuration[:medusa_base_url].chomp('/'),
@@ -84,20 +112,28 @@ module Medusa
     # level within this instance, including the instance itself.
     #
     def walk_tree(&block)
+      load_directory_tree
       yield self
-      walk(self, &block)
+      walk(@directory_tree, &block)
     end
 
 
     private
 
-    def walk(dir, &block)
-      dir.directories.each do |subdir|
-        yield subdir
+    def load_directory_tree
+      return if @directory_tree_loaded
+      load unless self.id
+      @directory_tree = fetch_body(self.directory_tree_url)
+      @directory_tree_loaded = true
+    end
+
+    def walk(dir_struct, &block)
+      dir_struct['subdirectories'].each do |subdir|
+        yield Directory.from_json(subdir)
         walk(subdir, &block)
       end
-      dir.files.each do |file|
-        yield file
+      dir_struct['files'].each do |file|
+        yield File.with_json(file)
       end
     end
 
