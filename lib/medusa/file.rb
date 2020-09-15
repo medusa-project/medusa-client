@@ -10,28 +10,25 @@ module Medusa
     attr_accessor :json
 
     ##
+    # Initializes a new instance from a JSON fragment.
+    #
+    # @param json [Hash]
+    # @return [Medusa::File]
+    #
+    def self.from_json(json)
+      file = Medusa::File.new
+      file.json = json
+      file.load
+      file
+    end
+
+    ##
     # @param id [Integer]
     # @return [Medusa::File]
     #
     def self.with_id(id)
       file = Medusa::File.new
       file.instance_variable_set('@id', id)
-      file
-    end
-
-    ##
-    # For performance reasons, a {Medusa::Directory} representation includes
-    # full {Medusa::File} representations in its `files` array. This method
-    # initializes a new instance based on one of those so that no additional
-    # HTTP requests are needed.
-    #
-    # @param json [Hash]
-    # @return [Medusa::File]
-    #
-    def self.with_json(json)
-      file = Medusa::File.new
-      file.json = json
-      file.load
       file
     end
 

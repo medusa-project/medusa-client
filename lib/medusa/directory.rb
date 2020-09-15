@@ -92,7 +92,7 @@ module Medusa
         @directories << Directory.with_id(subdir['id'])
       end
       struct['files'].each do |file|
-        @files << File.with_json(file)
+        @files << File.from_json(file)
       end
       @loaded = true
     end
@@ -133,7 +133,7 @@ module Medusa
         walk(subdir, &block)
       end
       dir_struct['files'].each do |file|
-        yield File.with_json(file)
+        yield File.from_json(file)
       end
     end
 
