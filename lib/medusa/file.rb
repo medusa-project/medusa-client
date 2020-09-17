@@ -98,7 +98,7 @@ module Medusa
       @id           = struct['id']
       @md5_sum      = struct['md5_sum']
       @media_type   = struct['content_type']
-      @mtime        = Time.parse(struct['mtime'])
+      @mtime        = Time.parse(struct['mtime']) if struct['mtime']
       @relative_key = struct['relative_pathname']
       @size         = struct['size']
       @uuid         = struct['uuid']
