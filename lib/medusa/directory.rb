@@ -90,11 +90,15 @@ module Medusa
       @relative_key = struct['relative_pathname']
       @uuid         = struct['uuid']
       @parent_id    = struct['parent_directory']['id'] if struct['parent_directory']
-      struct['subdirectories'].each do |subdir|
-        @directories << Directory.with_id(subdir['id'])
+      if struct['subdirectories'].respond_to?(:each)
+        struct['subdirectories'].each do |subdir|
+          @directories << Directory.with_id(subdir['id'])
+        end
       end
-      struct['files'].each do |file|
-        @files << File.from_json(file)
+      if struct['files'].respond_to?(:each)
+        struct['files'].each do |file|
+          @files << File.from_json(file)
+        end
       end
       @loaded = true
     end
@@ -139,12 +143,16 @@ module Medusa
     end
 
     def walk(dir_struct, &block)
-      dir_struct['subdirectories'].each do |subdir|
-        yield Directory.from_json(subdir)
-        walk(subdir, &block)
+      if dir_struct['subdirectories'].respond_to?(:each)
+        dir_struct['subdirectories'].each do |subdir|
+          yield Directory.from_json(subdir)
+          walk(subdir, &block)
+        end
       end
-      dir_struct['files'].each do |file|
-        yield File.from_json(file)
+      if dir_struct['files'].respond_to?(:each)
+        dir_struct['files'].each do |file|
+          yield File.from_json(file)
+        end
       end
     end
 
