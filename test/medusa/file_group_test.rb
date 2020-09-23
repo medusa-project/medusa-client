@@ -42,7 +42,7 @@ class Medusa::FileGroupTest < MiniTest::Test
   def test_directory_returns_a_directory_for_bit_level_file_groups
     dir = @instance.directory
     assert dir.kind_of?(::Medusa::Directory)
-    assert_equal 30193726375172, @instance.directory.id
+    assert_equal 460719701, @instance.directory.id
   end
 
   def test_directory_returns_nil_for_external_file_groups

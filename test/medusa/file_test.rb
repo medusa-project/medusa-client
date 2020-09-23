@@ -3,7 +3,7 @@ require "test_helper"
 #noinspection RubyInstanceMethodNamingConvention
 class Medusa::FileTest < MiniTest::Test
   def setup
-    @instance = ::Medusa::File.with_id(240067872391336)
+    @instance = ::Medusa::File.with_id(3663145025)
   end
 
   # from_json()
@@ -32,8 +32,8 @@ class Medusa::FileTest < MiniTest::Test
   # with_id()
 
   def test_with_id_returns_an_instance_when_given_an_id
-    @instance = ::Medusa::File.with_id(240067872391336)
-    assert_equal 240067872391336, @instance.id
+    @instance = ::Medusa::File.with_id(3663145025)
+    assert_equal 3663145025, @instance.id
     assert_equal '00000000000000000000000000000000', @instance.md5_sum
     assert_equal 'unknown/unknown', @instance.media_type
     assert_equal Time.parse('2020-01-01T10:05:30Z'), @instance.mtime
@@ -47,7 +47,7 @@ class Medusa::FileTest < MiniTest::Test
 
   def test_with_uuid_returns_an_instance_when_given_a_uuid
     @instance = ::Medusa::File.with_uuid('da572841-80a8-86fb-48eb-6ba18ade48ef')
-    #assert_equal 240067872391336, @instance.id TODO: fix this
+    #assert_equal 3663145025, @instance.id TODO: fix this
     assert_equal '00000000000000000000000000000000', @instance.md5_sum
     assert_equal 'unknown/unknown', @instance.media_type
     assert_equal Time.parse('2020-01-01T10:05:30Z'), @instance.mtime

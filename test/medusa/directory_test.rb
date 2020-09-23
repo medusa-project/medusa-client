@@ -6,7 +6,7 @@ class Medusa::DirectoryTest < MiniTest::Test
   def setup
     # N.B.: for testing, it's best to choose a directory that contains both
     # files and subdirectories
-    @instance = ::Medusa::Directory.with_id(30193726375172)
+    @instance = ::Medusa::Directory.with_id(460719701)
   end
 
   # from_json()
@@ -30,8 +30,8 @@ class Medusa::DirectoryTest < MiniTest::Test
   # with_id()
 
   def test_with_id_returns_an_instance
-    @instance = ::Medusa::Directory.with_id(30193726375172)
-    assert_equal 30193726375172, @instance.id
+    @instance = ::Medusa::Directory.with_id(460719701)
+    assert_equal 460719701, @instance.id
     assert_equal 'repositories/1/collections/1/file_groups/1/root', @instance.relative_key
     assert_equal '1b760655-c504-7fce-f171-76e4234844da', @instance.uuid
   end
@@ -40,7 +40,7 @@ class Medusa::DirectoryTest < MiniTest::Test
 
   def test_with_uuid_returns_an_instance
     @instance = ::Medusa::Directory.with_uuid('1b760655-c504-7fce-f171-76e4234844da')
-    #assert_equal 30193726375172, @instance.id TODO: fix this
+    #assert_equal 460719701, @instance.id TODO: fix this
     assert_equal 'repositories/1/collections/1/file_groups/1/root', @instance.relative_key
     assert_equal '1b760655-c504-7fce-f171-76e4234844da', @instance.uuid
   end
@@ -67,7 +67,7 @@ class Medusa::DirectoryTest < MiniTest::Test
     files = @instance.files
     assert_equal 1, files.length
     file = files.first
-    assert_equal 240067872391336, file.id
+    assert_equal 3663145025, file.id
   end
 
   # name()
@@ -79,8 +79,8 @@ class Medusa::DirectoryTest < MiniTest::Test
   # parent()
 
   def test_parent_returns_the_parent_directory
-    @instance = ::Medusa::Directory.with_id(175789411019744)
-    assert_equal 30193726375172, @instance.parent.id
+    @instance = ::Medusa::Directory.with_id(2682333542)
+    assert_equal 460719701, @instance.parent.id
   end
 
   def test_parent_returns_nil_for_root_directories
