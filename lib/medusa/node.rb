@@ -13,6 +13,7 @@ module Medusa
     # @return [Integer] Medusa database ID.
     #
     def id
+      load unless @id
       @id
     end
 
@@ -35,6 +36,7 @@ module Medusa
     # @return [String] Medusa UUID.
     #
     def uuid
+      load unless @uuid
       @uuid
     end
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    medusa-client (1.0.0)
+    medusa-client (1.0.1)
       httpclient
 
 GEM

@@ -28,6 +28,7 @@ module Medusa
     end
 
     def initialize
+      @loading     = false
       @loaded      = false
       @file_groups = Set.new
       @id          = nil
@@ -85,6 +86,7 @@ module Medusa
     # @return [Integer]
     #
     def id
+      load unless @id
       @id
     end
 
@@ -148,6 +150,7 @@ module Medusa
     # @return [String] Medusa UUID.
     #
     def uuid
+      load unless @uuid
       @uuid
     end
 
@@ -157,7 +160,8 @@ module Medusa
     # It should not typically be necessary to use this method publicly.
     #
     def load
-      return if @loaded
+      return if @loading || @loaded
+      @loading                 = true
       struct                   = fetch_body
       @access_url              = struct['access_url']
       @contact_email           = struct['contact_email']

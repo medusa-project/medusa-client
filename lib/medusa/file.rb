@@ -44,7 +44,7 @@ module Medusa
 
     def initialize
       super
-      @loaded = false
+      @loading = @loaded = false
     end
 
     ##
@@ -93,7 +93,8 @@ module Medusa
     # It should not typically be necessary to use this method publicly.
     #
     def load
-      return if @loaded
+      return if @loading || @loaded
+      @loading      = true
       struct        = json ? json : fetch_body
       @id           = struct['id']
       @md5_sum      = struct['md5_sum']

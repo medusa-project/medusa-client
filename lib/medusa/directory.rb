@@ -48,6 +48,7 @@ module Medusa
       @parent_id             = nil
       @files                 = Set.new
       @directories           = Set.new
+      @loading               = false
       @loaded                = false
       # These relate to the /cfs_directories/:id/show_tree.json representation.
       @directory_tree        = nil
@@ -84,7 +85,8 @@ module Medusa
     # It should not typically be necessary to use this method publicly.
     #
     def load
-      return if @loaded
+      return if @loading || @loaded
+      @loading      = true
       struct        = json ? json : fetch_body
       @id           = struct['id']
       @relative_key = struct['relative_pathname']

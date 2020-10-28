@@ -28,6 +28,7 @@ module Medusa
     end
 
     def initialize
+      @loading      = false
       @loaded       = false
       @collection   = nil
       @directory    = nil
@@ -69,6 +70,7 @@ module Medusa
     # @return [Integer] Medusa database ID.
     #
     def id
+      load unless @id
       @id
     end
 
@@ -92,6 +94,7 @@ module Medusa
     # @return [String] Medusa UUID.
     #
     def uuid
+      load unless @uuid
       @uuid
     end
 
@@ -101,7 +104,8 @@ module Medusa
     # It should not typically be necessary to use this method publicly.
     #
     def load
-      return if @loaded
+      return if @loading || @loaded
+      @loading                = true
       struct                  = fetch_body
       @collection_id          = struct['collection_id']
       @directory_id           = struct['cfs_directory']['id'] if struct['cfs_directory']
