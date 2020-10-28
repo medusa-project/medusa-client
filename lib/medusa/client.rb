@@ -53,7 +53,7 @@ module Medusa
     end
 
     def get_uuid(url, *args)
-      get(url_for_uuid(url), args)
+      get(url_for_uuid(url) + '.json', args)
     end
 
     def head(url, *args)

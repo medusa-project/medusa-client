@@ -38,4 +38,18 @@ class Medusa::ClientTest < Minitest::Test
     assert !@instance.class_of_uuid('cats')
   end
 
+  def test_get_uuid_with_invalid_uuid
+    uuid     = 'aaaaaaaa-bbbb-cccc-dddd-7e0bf53e9c84'
+    response = @instance.get_uuid(uuid)
+    assert_equal 404, response.status
+  end
+
+  def test_get_uuid_with_valid_uuid
+    uuid     = '5881d456-6dbe-90f1-ac81-7e0bf53e9c84'
+    response = @instance.get_uuid(uuid)
+    assert_equal 200, response.status
+    struct   = JSON.parse(response.body)
+    assert_equal uuid, struct['uuid']
+  end
+
 end
