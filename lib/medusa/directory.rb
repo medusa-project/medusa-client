@@ -109,6 +109,8 @@ module Medusa
         end
       end
       @loaded = true
+    ensure
+      @loading = false
     end
 
     ##

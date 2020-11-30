@@ -187,6 +187,8 @@ module Medusa
         @file_groups << FileGroup.with_id(group['id'])
       end
       @loaded = true
+    ensure
+      #@loading = false
     end
 
     ##

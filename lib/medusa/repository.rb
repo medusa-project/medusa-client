@@ -135,6 +135,8 @@ module Medusa
         @collections << Collection.with_id(col_struct['id'])
       end
       @loaded = true
+    ensure
+      @loading = false
     end
 
     ##

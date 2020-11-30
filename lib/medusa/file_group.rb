@@ -121,6 +121,8 @@ module Medusa
       @title                  = struct['title']
       @uuid                   = struct['uuid']
       @loaded                 = true
+    ensure
+      @loading = false
     end
 
     ##

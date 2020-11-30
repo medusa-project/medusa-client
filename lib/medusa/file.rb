@@ -115,6 +115,8 @@ module Medusa
         @directory_id = struct['directory']['id']
       end
       @loaded = true
+    ensure
+      @loading = false
     end
 
     ##
