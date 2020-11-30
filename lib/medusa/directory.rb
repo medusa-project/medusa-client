@@ -23,6 +23,9 @@ module Medusa
     end
 
     ##
+    # Returns a new instance with the given ID. Existence is not checked, so
+    # an instance is returned regardless of whether the ID is valid.
+    #
     # @param id [Integer]
     # @return [Medusa::Directory]
     #
@@ -33,6 +36,9 @@ module Medusa
     end
 
     ##
+    # Returns a new instance with the given UUID. Existence is not checked, so
+    # an instance is returned regardless of whether the UUID is valid.
+    #
     # @param uuid [String]
     # @return [Medusa::Directory]
     #

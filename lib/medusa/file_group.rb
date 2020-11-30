@@ -8,6 +8,9 @@ module Medusa
     include Resource
 
     ##
+    # Returns a new instance with the given ID. Existence is not checked, so
+    # an instance is returned regardless of whether the ID is valid.
+    #
     # @param uuid [String] Medusa database ID.
     # @return [Medusa::FileGroup]
     #
@@ -18,6 +21,9 @@ module Medusa
     end
 
     ##
+    # Returns a new instance with the given UUID. Existence is not checked, so
+    # an instance is returned regardless of whether the UUID is valid.
+    #
     # @param uuid [String] Medusa UUID.
     # @return [Medusa::FileGruop]
     #
