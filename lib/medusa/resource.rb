@@ -17,6 +17,22 @@ module Medusa
       false
     end
 
+    ##
+    # @return [Integer] Medusa database ID.
+    #
+    def id
+      load if @uuid && !@id
+      @id
+    end
+
+    ##
+    # @return [String] Medusa UUID.
+    #
+    def uuid
+      load if @id && !@uuid
+      @uuid
+    end
+
     protected
 
     ##

@@ -40,6 +40,7 @@ module Medusa
       @directory    = nil
       @directory_id = nil
       @id           = nil
+      @uuid         = nil
     end
 
     ##
@@ -73,14 +74,6 @@ module Medusa
     end
 
     ##
-    # @return [Integer] Medusa database ID.
-    #
-    def id
-      load unless @id
-      @id
-    end
-
-    ##
     # @return [String]
     #
     def storage_level
@@ -94,14 +87,6 @@ module Medusa
     def title
       load
       @title
-    end
-
-    ##
-    # @return [String] Medusa UUID.
-    #
-    def uuid
-      load unless @uuid
-      @uuid
     end
 
     ##

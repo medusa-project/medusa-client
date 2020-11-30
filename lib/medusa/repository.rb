@@ -40,6 +40,7 @@ module Medusa
       @loaded      = false
       @collections = Set.new
       @id          = nil
+      @uuid        = nil
     end
 
     ##
@@ -75,14 +76,6 @@ module Medusa
     end
 
     ##
-    # @return [Integer] Medusa database ID.
-    #
-    def id
-      load unless @id
-      @id
-    end
-
-    ##
     # @return [String]
     #
     def ldap_admin_domain
@@ -104,14 +97,6 @@ module Medusa
     def title
       load
       @title
-    end
-
-    ##
-    # @return [String] Medusa UUID.
-    #
-    def uuid
-      load unless @uuid
-      @uuid
     end
 
     ##

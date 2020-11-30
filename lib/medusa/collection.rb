@@ -38,6 +38,7 @@ module Medusa
       @loaded      = false
       @file_groups = Set.new
       @id          = nil
+      @uuid        = nil
     end
 
     ##
@@ -86,14 +87,6 @@ module Medusa
     def file_groups
       load
       @file_groups
-    end
-
-    ##
-    # @return [Integer]
-    #
-    def id
-      load unless @id
-      @id
     end
 
     ##
@@ -150,14 +143,6 @@ module Medusa
     def title
       load
       @title
-    end
-
-    ##
-    # @return [String] Medusa UUID.
-    #
-    def uuid
-      load unless @uuid
-      @uuid
     end
 
     ##

@@ -10,14 +10,6 @@ module Medusa
     end
 
     ##
-    # @return [Integer] Medusa database ID.
-    #
-    def id
-      load unless @id
-      @id
-    end
-
-    ##
     # @return [String] Last path component of {relative_key}.
     #
     def name
@@ -30,14 +22,6 @@ module Medusa
     def relative_key
       load
       @relative_key
-    end
-
-    ##
-    # @return [String] Medusa UUID.
-    #
-    def uuid
-      load unless @uuid
-      @uuid
     end
 
     def load
