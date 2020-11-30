@@ -7,6 +7,16 @@ module Medusa
 
     include Uuidable
 
+    ##
+    # @return [Boolean] Whether the instance exists in Medusa.
+    #
+    def exists?
+      load
+      true
+    rescue Medusa::NotFoundError
+      false
+    end
+
     protected
 
     ##

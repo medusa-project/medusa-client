@@ -37,6 +37,17 @@ class Medusa::RepositoryTest < MiniTest::Test
     assert_equal '40b62a2d-209f-292a-b1fc-4818b3321e6a', @instance.uuid
   end
 
+  # exists?()
+
+  def test_exists_with_an_existing_repository
+    assert @instance.exists?
+  end
+
+  def test_exists_with_a_non_existing_repository
+    @instance = ::Medusa::Repository.with_id(999999)
+    assert !@instance.exists?
+  end
+
   # load()
 
   def test_load_loads_an_existing_repository

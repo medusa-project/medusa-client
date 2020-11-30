@@ -61,6 +61,17 @@ class Medusa::DirectoryTest < MiniTest::Test
     assert_equal expected, @instance.directory_tree_url
   end
 
+  # exists?()
+
+  def test_exists_with_an_existing_directory
+    assert @instance.exists?
+  end
+
+  def test_exists_with_a_non_existing_directory
+    @instance = ::Medusa::Directory.with_id(999999)
+    assert !@instance.exists?
+  end
+
   # files()
 
   def test_files_returns_files

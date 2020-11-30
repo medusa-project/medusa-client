@@ -47,6 +47,17 @@ class Medusa::CollectionTest < MiniTest::Test
     assert_equal '81a13f45-d149-3dd7-f233-53cc395217fa', @instance.uuid
   end
 
+  # exists?()
+
+  def test_exists_with_an_existing_collection
+    assert @instance.exists?
+  end
+
+  def test_exists_with_a_non_existing_collection
+    @instance = ::Medusa::Collection.with_id(999999)
+    assert !@instance.exists?
+  end
+
   # load()
 
   def test_load_loads_an_existing_collection

@@ -57,6 +57,17 @@ class Medusa::FileTest < MiniTest::Test
     assert_equal 'da572841-80a8-86fb-48eb-6ba18ade48ef', @instance.uuid
   end
 
+  # exists?()
+
+  def test_exists_with_an_existing_file
+    assert @instance.exists?
+  end
+
+  def test_exists_with_a_non_existing_file
+    @instance = ::Medusa::File.with_id(999999)
+    assert !@instance.exists?
+  end
+
   # relative_key()
 
   def test_relative_key_returns_the_correct_key

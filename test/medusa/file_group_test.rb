@@ -50,6 +50,17 @@ class Medusa::FileGroupTest < MiniTest::Test
     assert_nil @instance.directory
   end
 
+  # exists?()
+
+  def test_exists_with_an_existing_file_group
+    assert @instance.exists?
+  end
+
+  def test_exists_with_a_non_existing_file_group
+    @instance = ::Medusa::FileGroup.with_id(999999)
+    assert !@instance.exists?
+  end
+
   # url()
 
   def test_url_returns_the_correct_url
