@@ -46,13 +46,13 @@ module Medusa
       raise 'fetch_body() called without ID or UUID set' unless self.id || self.uuid
 
       client   = Client.instance
-      url      = url_path || ((self.id ? self.url : self.uuid_url) + '.json')
+      url      = url_path || ((@id ? self.url : self.uuid_url) + '.json')
       response = client.get(url)
 
       if response.status < 300
         JSON.parse(response.body)
       elsif response.status == 404
-        raise NotFoundError, "#{self.class.to_s.split('::').last} ID #{self.id} not found in Medusa: #{url}"
+        raise NotFoundError, "#{self.class.to_s.split('::').last} ID #{@id} not found in Medusa: #{url}"
       else
         raise IOError, "Received HTTP #{response.status} for GET #{url}"
       end
