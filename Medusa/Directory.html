@@ -205,7 +205,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a new instance with the given ID.</p>
+</div></span>
   
 </li>
 
@@ -227,7 +229,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a new instance with the given UUID.</p>
+</div></span>
   
 </li>
 
@@ -443,6 +447,11 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Resource.html" title="Medusa::Resource (module)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#exists%3F-instance_method" title="Medusa::Resource#exists? (method)">#exists?</a></span></p>
+
+  
+  
   
   
   
@@ -491,20 +500,21 @@
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
-50
 51
 52
 53
 54
-55</pre>
+55
+56
+57
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='kw'>super</span>  <span class='comment'># These relate to the /cfs_directories/:id.json representation.
@@ -512,6 +522,7 @@
   <span class='ivar'>@parent_id</span>             <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@files</span>                 <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='ivar'>@directories</span>           <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@loading</span>               <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@loaded</span>                <span class='op'>=</span> <span class='kw'>false</span>  <span class='comment'># These relate to the /cfs_directories/:id/show_tree.json representation.
 </span>
   <span class='ivar'>@directory_tree</span>        <span class='op'>=</span> <span class='kw'>nil</span>
@@ -664,6 +675,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns a new instance with the given ID. Existence is not checked, so an instance is returned regardless of whether the ID is valid.</p>
+
 
   </div>
 </div>
@@ -704,14 +717,14 @@
       <pre class="lines">
 
 
-29
-30
-31
 32
-33</pre>
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_with_id'>with_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Directory (class)">Directory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Medusa::Directory#initialize (method)">new</a></span></span>
@@ -735,6 +748,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns a new instance with the given UUID. Existence is not checked, so an instance is returned regardless of whether the UUID is valid.</p>
+
 
   </div>
 </div>
@@ -775,14 +790,14 @@
       <pre class="lines">
 
 
-39
-40
-41
-42
-43</pre>
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_with_uuid'>with_uuid</span><span class='lparen'>(</span><span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Directory (class)">Directory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Medusa::Directory#initialize (method)">new</a></span></span>
@@ -837,13 +852,13 @@
       <pre class="lines">
 
 
-60
-61
-62
-63</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directories'>directories</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -905,12 +920,12 @@
       <pre class="lines">
 
 
-69
-70
-71</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directory_tree_url'>directory_tree_url</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/show_tree.json</span><span class='tstring_end'>&#39;</span></span>
@@ -957,13 +972,13 @@
       <pre class="lines">
 
 
-76
-77
-78
-79</pre>
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_files'>files</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -1002,13 +1017,6 @@
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
-91
-92
 93
 94
 95
@@ -1016,23 +1024,40 @@
 97
 98
 99
-100</pre>
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@loaded</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@loading</span> <span class='op'>||</span> <span class='ivar'>@loaded</span>
+  <span class='ivar'>@loading</span>      <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_struct'>struct</span>        <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span> <span class='op'>?</span> <span class='id identifier rubyid_json'>json</span> <span class='op'>:</span> <span class='id identifier rubyid_fetch_body'>fetch_body</span>
   <span class='ivar'>@id</span>           <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@relative_key</span> <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>relative_pathname</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@uuid</span>         <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>uuid</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@parent_id</span>    <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>parent_directory</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>parent_directory</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdirectories</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_subdir'>subdir</span><span class='op'>|</span>
-    <span class='ivar'>@directories</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Directory (class)">Directory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with_id'><span class='object_link'><a href="#with_id-class_method" title="Medusa::Directory.with_id (method)">with_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_subdir'>subdir</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdirectories</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:each</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subdirectories</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_subdir'>subdir</span><span class='op'>|</span>
+      <span class='ivar'>@directories</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Directory (class)">Directory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with_id'><span class='object_link'><a href="#with_id-class_method" title="Medusa::Directory.with_id (method)">with_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_subdir'>subdir</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
-    <span class='ivar'>@files</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="File.html" title="Medusa::File (class)">File</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_json'><span class='object_link'><a href="File.html#from_json-class_method" title="Medusa::File.from_json (method)">from_json</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:each</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
+      <span class='ivar'>@files</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="File.html" title="Medusa::File (class)">File</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_json'><span class='object_link'><a href="File.html#from_json-class_method" title="Medusa::File.from_json (method)">from_json</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='ivar'>@loaded</span> <span class='op'>=</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
@@ -1085,13 +1110,13 @@
       <pre class="lines">
 
 
-106
-107
-108
-109</pre>
+118
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -1153,14 +1178,14 @@
       <pre class="lines">
 
 
-115
-116
-117
-118
-119</pre>
+127
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
   <span class='lbracket'>[</span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Medusa.html" title="Medusa (module)">Medusa</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Client.html" title="Medusa::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'><span class='object_link'><a href="Client.html#configuration-class_method" title="Medusa::Client.configuration (method)">configuration</a></span></span><span class='lbracket'>[</span><span class='symbol'>:medusa_base_url</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
@@ -1231,14 +1256,14 @@
       <pre class="lines">
 
 
-125
-126
-127
-128
-129</pre>
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/directory.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_walk_tree'>walk_tree</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_load_directory_tree'>load_directory_tree</span>
@@ -1255,7 +1280,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 15 13:34:21 2020 by
+  Generated on Mon Nov 30 10:56:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.1).
 </div>

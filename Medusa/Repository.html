@@ -147,7 +147,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a new instance with the given ID.</p>
+</div></span>
   
 </li>
 
@@ -169,7 +171,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a new instance with the given UUID.</p>
+</div></span>
   
 </li>
 
@@ -471,6 +475,11 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Resource.html" title="Medusa::Resource (module)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#exists%3F-instance_method" title="Medusa::Resource#exists? (method)">#exists?</a></span></p>
+
+  
+  
   
   
   
@@ -508,16 +517,18 @@
       <pre class="lines">
 
 
-32
-33
-34
-35
-36</pre>
+38
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='ivar'>@loading</span>     <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@loaded</span>      <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@collections</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='ivar'>@id</span>          <span class='op'>=</span> <span class='kw'>nil</span>
@@ -546,6 +557,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns a new instance with the given ID. Existence is not checked, so an instance is returned regardless of whether the ID is valid.</p>
+
 
   </div>
 </div>
@@ -591,14 +604,14 @@
       <pre class="lines">
 
 
-16
-17
-18
 19
-20</pre>
+20
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_with_id'>with_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Medusa::Repository#initialize (method)">new</a></span></span>
@@ -622,6 +635,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns a new instance with the given UUID. Existence is not checked, so an instance is returned regardless of whether the UUID is valid.</p>
+
 
   </div>
 </div>
@@ -667,14 +682,14 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30</pre>
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_with_uuid'>with_uuid</span><span class='lparen'>(</span><span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Medusa::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Medusa::Repository#initialize (method)">new</a></span></span>
@@ -729,13 +744,13 @@
       <pre class="lines">
 
 
-41
-42
-43
-44</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collections'>collections</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -783,13 +798,13 @@
       <pre class="lines">
 
 
-49
-50
-51
-52</pre>
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contact_email'>contact_email</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -837,13 +852,13 @@
       <pre class="lines">
 
 
-57
-58
-59
-60</pre>
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email'>email</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -891,13 +906,13 @@
       <pre class="lines">
 
 
-65
-66
-67
-68</pre>
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_home_url'>home_url</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -952,14 +967,16 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_load'>load</span> <span class='kw'>unless</span> <span class='ivar'>@id</span>
   <span class='ivar'>@id</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1004,13 +1021,13 @@
       <pre class="lines">
 
 
-80
-81
-82
-83</pre>
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ldap_admin_domain'>ldap_admin_domain</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -1058,13 +1075,13 @@
       <pre class="lines">
 
 
-88
-89
-90
-91</pre>
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ldap_admin_group'>ldap_admin_group</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -1103,28 +1120,30 @@
       <pre class="lines">
 
 
-113
-114
-115
-116
-117
-118
-119
-120
-121
 122
 123
 124
 125
 126
 127
-128</pre>
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@loaded</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@loading</span> <span class='op'>||</span> <span class='ivar'>@loaded</span>
+  <span class='ivar'>@loading</span>           <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_struct'>struct</span>             <span class='op'>=</span> <span class='id identifier rubyid_fetch_body'>fetch_body</span>
   <span class='ivar'>@contact_email</span>     <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>contact_email</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@email</span>             <span class='op'>=</span> <span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>email</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1181,13 +1200,13 @@
       <pre class="lines">
 
 
-96
-97
-98
-99</pre>
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_title'>title</span>
   <span class='id identifier rubyid_load'>load</span>
@@ -1242,14 +1261,14 @@
       <pre class="lines">
 
 
-133
-134
-135
-136
-137</pre>
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
   <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Client.html" title="Medusa::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configuration'><span class='object_link'><a href="Client.html#configuration-class_method" title="Medusa::Client.configuration (method)">configuration</a></span></span><span class='lbracket'>[</span><span class='symbol'>:medusa_base_url</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
@@ -1305,14 +1324,16 @@
       <pre class="lines">
 
 
-104
-105
-106</pre>
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/medusa/repository.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uuid'>uuid</span>
+  <span class='id identifier rubyid_load'>load</span> <span class='kw'>unless</span> <span class='ivar'>@uuid</span>
   <span class='ivar'>@uuid</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1325,7 +1346,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 15 13:34:21 2020 by
+  Generated on Mon Nov 30 10:56:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.1).
 </div>
