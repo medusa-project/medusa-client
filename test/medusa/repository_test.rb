@@ -46,6 +46,9 @@ class Medusa::RepositoryTest < MiniTest::Test
   def test_exists_with_a_non_existing_repository
     @instance = ::Medusa::Repository.with_id(999999)
     assert !@instance.exists?
+
+    @instance = ::Medusa::Repository.with_uuid('aaaaaaaa')
+    assert !@instance.exists?
   end
 
   # load()

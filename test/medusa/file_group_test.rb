@@ -59,6 +59,9 @@ class Medusa::FileGroupTest < MiniTest::Test
   def test_exists_with_a_non_existing_file_group
     @instance = ::Medusa::FileGroup.with_id(999999)
     assert !@instance.exists?
+
+    @instance = ::Medusa::FileGroup.with_uuid('aaaaaaaa')
+    assert !@instance.exists?
   end
 
   # url()

@@ -66,6 +66,9 @@ class Medusa::FileTest < MiniTest::Test
   def test_exists_with_a_non_existing_file
     @instance = ::Medusa::File.with_id(999999)
     assert !@instance.exists?
+
+    @instance = ::Medusa::File.with_uuid('aaaaaaaa')
+    assert !@instance.exists?
   end
 
   # relative_key()

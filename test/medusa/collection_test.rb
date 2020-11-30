@@ -56,6 +56,9 @@ class Medusa::CollectionTest < MiniTest::Test
   def test_exists_with_a_non_existing_collection
     @instance = ::Medusa::Collection.with_id(999999)
     assert !@instance.exists?
+
+    @instance = ::Medusa::Collection.with_uuid('aaaaaaaa')
+    assert !@instance.exists?
   end
 
   # load()

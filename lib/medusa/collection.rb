@@ -173,7 +173,7 @@ module Medusa
       end
       @loaded = true
     ensure
-      #@loading = false
+      @loading = false
     end
 
     ##

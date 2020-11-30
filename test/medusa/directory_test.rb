@@ -70,6 +70,9 @@ class Medusa::DirectoryTest < MiniTest::Test
   def test_exists_with_a_non_existing_directory
     @instance = ::Medusa::Directory.with_id(999999)
     assert !@instance.exists?
+
+    @instance = ::Medusa::Directory.with_uuid('aaaaaaaa')
+    assert !@instance.exists?
   end
 
   # files()
