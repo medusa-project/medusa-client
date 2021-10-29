@@ -43,6 +43,13 @@ module Medusa
       @uuid        = nil
     end
 
+    def ==(obj)
+      if obj.kind_of?(::Medusa::Repository)
+        return obj.id == self.id && obj.uuid == self.uuid
+      end
+      false
+    end
+
     ##
     # @return [Enumerable<Medusa::Collection>]
     #

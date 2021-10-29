@@ -57,6 +57,26 @@ class Medusa::FileTest < MiniTest::Test
     assert_equal 'da572841-80a8-86fb-48eb-6ba18ade48ef', @instance.uuid
   end
 
+  # ==()
+
+  def test_equals_with_an_equal_instance
+    file1 = ::Medusa::File.with_id(3663145025)
+    file2 = ::Medusa::File.with_id(3663145025)
+    assert_equal file1, file2
+  end
+
+  def test_equals_with_an_unequal_instance
+    file1 = ::Medusa::File.with_id(3663145025)
+    file2 = ::Medusa::File.with_id(223323659)
+    assert file1 != file2
+  end
+
+  def test_equals_with_a_different_type
+    file1 = ::Medusa::File.with_id(3663145025)
+    file2 = "this isn't a Medusa::File"
+    assert file1 != file2
+  end
+
   # exists?()
 
   def test_exists_with_an_existing_file

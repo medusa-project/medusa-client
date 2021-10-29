@@ -45,6 +45,26 @@ class Medusa::DirectoryTest < MiniTest::Test
     assert_equal '1b760655-c504-7fce-f171-76e4234844da', @instance.uuid
   end
 
+  # ==()
+
+  def test_equals_with_an_equal_instance
+    dir1 = ::Medusa::Directory.with_id(1803307004)
+    dir2 = ::Medusa::Directory.with_id(1803307004)
+    assert_equal dir1, dir2
+  end
+
+  def test_equals_with_an_unequal_instance
+    dir1 = ::Medusa::Directory.with_id(1803307004)
+    dir2 = ::Medusa::Directory.with_id(3103516416)
+    assert dir1 != dir2
+  end
+
+  def test_equals_with_a_different_type
+    dir1 = ::Medusa::Directory.with_id(1803307004)
+    dir2 = "this isn't a Medusa::Directory"
+    assert dir1 != dir2
+  end
+
   # directories()
 
   def test_directories_returns_subdirectories

@@ -61,6 +61,15 @@ module Medusa
       @directory_tree_loaded = false
     end
 
+    def ==(obj)
+      if obj.kind_of?(Medusa::Directory)
+        return obj.id == self.id &&
+          obj.uuid == self.uuid &&
+          obj.relative_key == self.relative_key
+      end
+      false
+    end
+
     ##
     # @return [Enumerable<Medusa::Directory>]
     #

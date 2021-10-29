@@ -53,6 +53,16 @@ module Medusa
       @loading = @loaded = false
     end
 
+    def ==(obj)
+      if obj.kind_of?(::Medusa::File)
+        return obj.id == self.id &&
+          obj.uuid == self.uuid &&
+          obj.media_type == self.media_type &&
+          obj.relative_key == self.relative_key
+      end
+      false
+    end
+
     ##
     # @return [Medusa::Directory]
     #

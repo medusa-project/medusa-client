@@ -47,6 +47,26 @@ class Medusa::CollectionTest < MiniTest::Test
     assert_equal '81a13f45-d149-3dd7-f233-53cc395217fa', @instance.uuid
   end
 
+  # ==()
+
+  def test_equals_with_an_equal_instance
+    collection1 = ::Medusa::Collection.with_id(1)
+    collection2 = ::Medusa::Collection.with_id(1)
+    assert_equal collection1, collection2
+  end
+
+  def test_equals_with_an_unequal_instance
+    collection1 = ::Medusa::Collection.with_id(1)
+    collection2 = ::Medusa::Collection.with_id(2)
+    assert collection1 != collection2
+  end
+
+  def test_equals_with_a_different_type
+    collection1 = ::Medusa::Collection.with_id(1)
+    collection2 = "this isn't a Medusa::File"
+    assert collection1 != collection2
+  end
+
   # exists?()
 
   def test_exists_with_an_existing_collection

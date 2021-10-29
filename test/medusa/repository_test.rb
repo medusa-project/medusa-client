@@ -37,6 +37,26 @@ class Medusa::RepositoryTest < MiniTest::Test
     assert_equal '40b62a2d-209f-292a-b1fc-4818b3321e6a', @instance.uuid
   end
 
+  # ==()
+
+  def test_equals_with_an_equal_instance
+    repo1 = ::Medusa::Repository.with_id(1)
+    repo2 = ::Medusa::Repository.with_id(1)
+    assert_equal repo1, repo2
+  end
+
+  def test_equals_with_an_unequal_instance
+    repo1 = ::Medusa::Repository.with_id(1)
+    repo2 = ::Medusa::Repository.with_id(2)
+    assert repo1 != repo2
+  end
+
+  def test_equals_with_a_different_type
+    repo1 = ::Medusa::Repository.with_id(1)
+    repo2 = "this isn't a Medusa::Repository"
+    assert repo1 != repo2
+  end
+
   # exists?()
 
   def test_exists_with_an_existing_repository

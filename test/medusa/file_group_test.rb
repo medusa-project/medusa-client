@@ -29,6 +29,26 @@ class Medusa::FileGroupTest < MiniTest::Test
     assert_equal '5881d456-6dbe-90f1-ac81-7e0bf53e9c84', @instance.uuid
   end
 
+  # ==()
+
+  def test_equals_with_an_equal_instance
+    group1 = ::Medusa::FileGroup.with_id(1)
+    group2 = ::Medusa::FileGroup.with_id(1)
+    assert_equal group1, group2
+  end
+
+  def test_equals_with_an_unequal_instance
+    group1 = ::Medusa::FileGroup.with_id(1)
+    group2 = ::Medusa::FileGroup.with_id(2)
+    assert group1 != group2
+  end
+
+  def test_equals_with_a_different_type
+    group1 = ::Medusa::FileGroup.with_id(1)
+    group2 = "this isn't a Medusa::FileGroup"
+    assert group1 != group2
+  end
+
   # collection()
 
   def test_collection_returns_a_collection
