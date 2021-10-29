@@ -71,6 +71,13 @@ class Medusa::DirectoryTest < MiniTest::Test
     assert_equal 2, @instance.directories.length
   end
 
+  def test_directories_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::Directory.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.name
+    end
+  end
+
   # directory_tree_url()
 
   def test_directory_tree_url_returns_the_correct_url
@@ -104,10 +111,24 @@ class Medusa::DirectoryTest < MiniTest::Test
     assert_equal 3663145025, file.id
   end
 
+  def test_files_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::Directory.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.files
+    end
+  end
+
   # name()
 
   def test_name_returns_the_directory_name
     assert_equal 'root', @instance.name
+  end
+
+  def test_name_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::Directory.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.name
+    end
   end
 
   # parent()
@@ -119,6 +140,13 @@ class Medusa::DirectoryTest < MiniTest::Test
 
   def test_parent_returns_nil_for_root_directories
     assert_nil @instance.parent
+  end
+
+  def test_parent_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::Directory.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.parent
+    end
   end
 
   # url()

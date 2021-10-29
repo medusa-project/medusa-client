@@ -57,6 +57,15 @@ class Medusa::FileGroupTest < MiniTest::Test
     assert_equal 1, @instance.collection.id
   end
 
+  # collection()
+
+  def test_collection_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::FileGroup.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.collection
+    end
+  end
+
   # directory()
 
   def test_directory_returns_a_directory_for_bit_level_file_groups
@@ -68,6 +77,15 @@ class Medusa::FileGroupTest < MiniTest::Test
   def test_directory_returns_nil_for_external_file_groups
     @instance = ::Medusa::FileGroup.with_id(2)
     assert_nil @instance.directory
+  end
+
+  # directory()
+
+  def test_directory_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::FileGroup.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.directory
+    end
   end
 
   # exists?()
@@ -82,6 +100,33 @@ class Medusa::FileGroupTest < MiniTest::Test
 
     @instance = ::Medusa::FileGroup.with_uuid('aaaaaaaa')
     assert !@instance.exists?
+  end
+
+  # external_file_location()
+
+  def test_external_file_location_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::FileGroup.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.external_file_location
+    end
+  end
+
+  # storage_level()
+
+  def test_storage_level_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::FileGroup.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.storage_level
+    end
+  end
+
+  # title()
+
+  def test_title_raises_an_error_for_invalid_file_group_ids
+    @instance = ::Medusa::FileGroup.with_id(11111111)
+    assert_raises Medusa::NotFoundError do
+      @instance.title
+    end
   end
 
   # url()
